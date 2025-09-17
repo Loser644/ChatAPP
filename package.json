@@ -1,0 +1,32 @@
+{
+  "name": "chatapp",
+  "version": "1.0.0",
+  "main": "server/nodeServer/myServer.js",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"nodemon server/myServer.js\" \"vite --config client/vite.config.js --root client\"",
+    "build": "vite build --config client/vite.config.js",
+    "serve": "nodemon server/nodeServer/myServer.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.12.2",
+    "chalk": "^5.6.2",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.5",
+    "nodemon": "^3.1.10",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-toastify": "^11.0.5",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.2",
+    "concurrently": "^9.2.1",
+    "vite": "^7.1.5"
+  }
+}
