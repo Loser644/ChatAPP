@@ -53,7 +53,7 @@ export const CreateUser = async (rkv,rspo) => {
         return rspo.status(302).send({err:`${dublicate} Already Taken`});
     }
 
-    if (password.length<6) {
+    if (/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(password)) {
         let rslt = await deleImg(avatar);
         if (!rslt.status) return rspo.status(501).send({err:rslt.err})
         return rspo.status(400).send({err:"password length atlist 6"})

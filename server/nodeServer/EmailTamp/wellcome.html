@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome Email</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #198549, #464ed8);
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .header img {
+      max-height: 70px;
+      position: absolute;
+      left: 7cqh;
+      top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .header h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .content {
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .otp-box {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 12px 24px;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #ffffff;
+      background: #333;
+      border-radius: 8px;
+      border: 1px solid #555;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #b0b0b0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 12px;
+      color: #777;
+      background: #181818;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://i.postimg.cc/jj8pgXwf/logo.png" alt="Logo">
+      <h3>Welcome to {{name}} 🎉</h3>
+    </div>
+    <div class="content">
+      <p>Use the OTP below to continue:</p>
+      <div class="otp-box">{{otp}}</div>
+      <p>Thank you for joining us! We’re excited to have you 🎉</p>
+    </div>
+    <div class="footer">
+      © 2025 {{name}}. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>
