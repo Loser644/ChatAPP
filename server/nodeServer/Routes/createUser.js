@@ -1,6 +1,7 @@
 import {connection} from '../Controllers/myConnectionFile.js';
 import bcrypt from 'bcrypt';
 import fs from 'fs';
+import {sendTheMail} from '../Controllers/nodemailer.js';
 async function checkDublicate(sqlData,username,email) {
     //console.log(email,username,sqlData)
     if (sqlData.some(prv=> prv.username === username)) {
@@ -53,16 +54,24 @@ export const CreateUser = async (rkv,rspo) => {
         return rspo.status(302).send({err:`${dublicate} Already Taken`});
     }
 
-    if (/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(password)) {
+    if (!/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(password)) {
         let rslt = await deleImg(avatar);
         if (!rslt.status) return rspo.status(501).send({err:rslt.err})
         return rspo.status(400).send({err:"password length atlist 6"})
     }
+    const otp = Math.floor(100000 + Math.random() * 900000);
     try {
-        let hashPass = await bcrypt.hash(password,10);
-        let createquery="INSERT INTO users (name,username,email,password,avatar) VALUES (?,?,?,?,?)";
-        let request = await connection.query(createquery,[name,username,email,hashPass,avatar])
-        rspo.status(201).send({pass:"Created",request})
+        let send = await sendTheMail(
+            email,
+            "Welcome to MyApp🎉",
+            "wellcome",
+            {name,otp}
+        )
+        rspo.send({send});
+        // let hashPass = await bcrypt.hash(password,10);
+        // let createquery="INSERT INTO users (name,username,email,password,avatar) VALUES (?,?,?,?,?)";
+        // let request = await connection.query(createquery,[name,username,email,hashPass,avatar])
+        // rspo.status(201).send({pass:"Created",request})
     } catch (error) {
         let rslt = await deleImg(avatar);
         if (!rslt.status) return rspo.status(501).send({err:rslt.err})
