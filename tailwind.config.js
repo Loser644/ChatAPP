@@ -9,7 +9,21 @@ export default {
     "./packages/**/*.{js,jsx,ts,tsx}", // if you have shared components
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        fontFamily:{
+          sans:["Inter","ui-sans-serif","system-ui","sans-serif"],
+        },
+        // here i'm use css properlty as colors 
+        skin:{
+          bg:"",
+          text:"",
+          pannelBG:"",
+          pannelTXT:"",
+          miniBG:"",
+        },
+      },
+    },
   },
   plugins: [],
 }
