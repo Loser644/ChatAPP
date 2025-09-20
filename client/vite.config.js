@@ -1,20 +1,17 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// https://vite.dev/config/
 export default defineConfig({
+  root: "client",   // 👈 this tells Vite where your app lives
   plugins: [react()],
   server: {
-  port: 3221, // frontend
-  proxy: {
-    "/api": {
-      target: "http://127.0.0.1:3222", // backend
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/api/, ""),
+    port: 3221,
+    proxy: {
+      "/myServer": {
+        target: "http://127.0.0.1:3222",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/myServer/, ""),
+      },
     },
   },
-},
-  build:{
-    outDir: "../server/public"
-  }
-})
+});

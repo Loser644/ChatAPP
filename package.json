@@ -4,7 +4,7 @@
   "main": "server/nodeServer/myServer.js",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"nodemon server/myServer.js\" \"vite --config client/vite.config.js --root client\"",
+    "dev": "concurrently \"nodemon server/myServer.js\" \"vite --config client/vite.config.js\"",
     "build": "vite build --config client/vite.config.js",
     "serve": "nodemon server/nodeServer/myServer.js"
   },
@@ -13,22 +13,28 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "autoprefixer": "^10.4.21",
     "axios": "^1.12.2",
     "bcrypt": "^6.0.0",
     "chalk": "^5.6.2",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "framer-motion": "^12.23.16",
     "handlebars": "^4.7.8",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
     "mysql2": "^3.14.5",
     "nodemailer": "^7.0.6",
     "nodemon": "^3.1.10",
+    "postcss": "^8.5.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.1",
     "react-toastify": "^11.0.5",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.0.2",
