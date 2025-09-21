@@ -7,10 +7,9 @@ import './assets/style/index.css'
 import './assets/style/baseStyle.css'
 createRoot(document.getElementById('rootContainer')).render(
     <StrictMode>
-        {/* <BrowserRouter>
-
-        </BrowserRouter> */}
+        <BrowserRouter>
         <MyApp/>
+        </BrowserRouter>
         <ToastContainer
             position='bottom-right'
             autoClose={false}
