@@ -4,7 +4,7 @@ export default function ThemeButton() {
 
     return(
         <button onClick={toggleTheme} className="relative px-2 py-3 rounded-lg text-white font-semibold 
-          bg-gradient-to-r from-cyan-400 to-blue-600 active:brightness-90
+          bg-gradient-to-tr from-yellow-500 via-pink-600 to-purple-700 ... active:brightness-90
           hover:opacity-90 active:scale-95 transition-all duration-700
           shadow-md overflow-hidden cursor-pointer">
         
