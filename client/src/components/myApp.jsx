@@ -9,7 +9,7 @@ export default function MyApp() {
         <PageTransition location={location} key={location.pathname}>
            <Header/>
             <Routes>
-                <Route path='/' element={<div className='routeContainer flex items-center content-center font-sans'>{<LoginEL/>}</div>} />
+                <Route path='/' element={<div className='routeContainer flex items-center content-center text-skin-text'>{<LoginEL/>}</div>} />
             </Routes>
         </PageTransition>
     )
