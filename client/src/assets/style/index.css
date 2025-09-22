@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@theme {
+    --color-skin-bg: rgb(241, 255, 255);
+    --color-skin-text: #000000;
+    --color-skin-ptext:#363636;
+}
+
+html.dark {
+    --color-skin-bg: rgb(13, 13, 13);
+    --color-skin-text: #fff700;
+    --color-skin-ptext:#fbff7d;
+}

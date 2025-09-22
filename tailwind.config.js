@@ -10,16 +10,6 @@ export default {
   ],
  theme: {
     extend: {
-      fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-      },
-      colors: {
-        // skin: {
-        //   bg: "var(--bg-color)",
-        //   text: "var(--text-color)",
-        //   miniBG: "var(--mini-bg-color)",
-        // },
-      },
     },
   },
   plugins: [],

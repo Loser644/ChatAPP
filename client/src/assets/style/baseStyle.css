@@ -1,22 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 :root {
-    --bg-color: rgb(241, 241, 241);
+    --bg-color: rgb(255, 255, 255);
     --text-color: #000000;
-    --mini-bg-color: rgba(0,0,0,0.3);
+    --p-text-color:#363636;
 }
 [data-theme='dark']{
     --bg-color: rgb(13, 13, 13);
-    --text-color: #fff;
-    --mini-bg-color: rgba(0,0,0,0.7);
+    --text-color: #fff700;
+    --p-text-color:#fbff7d;
 }
 *{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 body{
     margin: 0px; padding: 0px;
-    /* background-color: var(--bg-color); */
-    background-image: url('https://i.postimg.cc/xTTKPMZq/purmel.jpg');
+    background-color: var(--bg-color);
+    /* background-image: url('https://i.postimg.cc/xTTKPMZq/purmel.jpg'); */
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -28,11 +30,7 @@ body{
     background: var(--mini-bg-color);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    position: relative;
-}
-.headerContainer{
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    position: relative; 
 }
 /* .container{
     height: 80vh; width: 80vw;
