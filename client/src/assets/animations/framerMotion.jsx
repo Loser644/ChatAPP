@@ -2,7 +2,7 @@ import {motion,AnimatePresence} from 'framer-motion';
 export default function PageTransition({children,location}) {
     return(
         <AnimatePresence mode='wait'>
-            <motion.div 
+            <motion.div className='middlerWhere'
                 key={location.pathname}
                 initial={{y:"100%",opacity:0}}
                 animate={{y:0,opacity:1}}
