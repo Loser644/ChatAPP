@@ -14,10 +14,10 @@ export default function ThemeButton() {
         className="sr-only peer"
       />
       <div
-        className="w-15 h-6 rounded-full bg-gradient-to-r from-yellow-300 to-orange-400 
+        className="w-15 h-6 rounded-full bg-gradient-to-r from-yellow-300 to-orange-400 flex items-center 
           peer-checked:from-gray-900 peer-checked:to-indigo-500 
           transition-all duration-500 
-          after:content-['☀️'] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-5 after:w-5 
+          after:content-['☀️'] after:absolute after:left-1 after:bg-skin-bg after:rounded-full after:h-5 after:w-5 
           after:flex after:items-center after:justify-center 
           after:transition-all after:duration-500 
           peer-checked:after:translate-x-8 peer-checked:after:content-['🌙'] 
