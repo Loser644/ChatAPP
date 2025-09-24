@@ -2,13 +2,28 @@ import {useThemeStore} from '../lib/toggleTheme';
 export default function ThemeButton() {
     const {theme,toggleTheme} = useThemeStore();
 
+    const handler = ()=>{
+      let inp = theme==="light" ? "dark" : "light";
+      toggleTheme(inp);
+    }
     return(
 <label className="relative inline-flex items-center cursor-pointer">
-  <input onClick={toggleTheme} className="sr-only peer" type="checkbox" />
-  <div
-    className="w-15 h-6 rounded-full bg-gradient-to-r from-yellow-300 to-orange-400 peer-checked:from-gray-900 peer-checked:to-indigo-500 transition-all duration-500 after:content-['☀️'] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-5 after:w-5 after:flex after:items-center after:justify-center after:transition-all after:duration-500 peer-checked:after:translate-x-8 peer-checked:after:content-['🌙'] after:shadow-md after:text-lg"
-  ></div>
-</label>
+      <input
+        type="checkbox" onClick={handler}
+        checked={theme === "dark"} // make it reflect the current theme
+        className="sr-only peer"
+      />
+      <div
+        className="w-15 h-6 rounded-full bg-gradient-to-r from-yellow-300 to-orange-400 
+          peer-checked:from-gray-900 peer-checked:to-indigo-500 
+          transition-all duration-500 
+          after:content-['☀️'] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-5 after:w-5 
+          after:flex after:items-center after:justify-center 
+          after:transition-all after:duration-500 
+          peer-checked:after:translate-x-8 peer-checked:after:content-['🌙'] 
+          after:shadow-md after:text-lg"
+      ></div>
+    </label>
 
     )
 }

@@ -3,20 +3,27 @@ import {Routes,Route, useLocation} from 'react-router-dom';
 import LoginEL from '../Page/Login/baseFIle';
 import Header from '../Page/BaseComponent/header';
 import MenuEL from '../Page/BaseComponent/menu';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Loader } from '../lib/loader';
 import LoaderEL from '../assets/animations/loadingBar';
+import { useThemeStore } from '../lib/toggleTheme';
 export default function MyApp() {
+    let {toggleTheme} = useThemeStore();
+    let [currentTheme] = useState(localStorage.getItem('theme') || "light")
     let location = useLocation();
     const {isTrue,toggleLoader} = Loader();
     useEffect(()=>{
         const handler = ()=> toggleLoader();
         window.addEventListener("load",handler);
         return ()=> window.removeEventListener("load",handler)
+    },[location.pathname]);
+
+    useEffect(()=>{
+        toggleTheme(currentTheme)
     },[])
     return(
         <PageTransition location={location} key={location.pathname}>
-            <LoaderEL/>
+            {isTrue && <LoaderEL/>}
            <Header/>
            <MenuEL/>
             <Routes>

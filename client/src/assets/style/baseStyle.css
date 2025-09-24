@@ -31,6 +31,10 @@ body{
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     position: relative; 
+    overflow: hidden;
+}
+.middlerWhere{
+    width: 100% !important;
 }
 .dropDown{
     top: 100%;
@@ -66,7 +70,7 @@ body{
     to{
         transform: translateY(2px);
         opacity: 1;
-        visibility: visible;
+        visibility: visible !important;
     }
 }
 .Logotxt,.firstHalf{
@@ -86,6 +90,25 @@ body{
         background-position: 200%,50%;
     }
     50%{background-position: 50%,0%;}
+}
+@media (max-width:1024px) {
+    
+    .menuDiv{
+        width: 50px;
+        .Logotxt{
+            width: auto;
+            h2{
+                display: none;
+            }
+        }
+        .menuContainer{
+            li{
+                span{
+                    display: none;
+                }
+            }
+        }
+    }
 }
 /* .container{
     height: 80vh; width: 80vw;
