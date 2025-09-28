@@ -11,6 +11,7 @@ export default function MyApp() {
     let {toggleTheme} = useThemeStore();
     let [currentTheme] = useState(localStorage.getItem('theme') || "light")
     let location = useLocation();
+    let isLogin = location.pathname === "/"
     const {isTrue,toggleLoader} = Loader();
     useEffect(()=>{
         const handler = ()=> toggleLoader();
@@ -24,10 +25,11 @@ export default function MyApp() {
     return(
         <PageTransition location={location} key={location.pathname}>
             {isTrue && <LoaderEL/>}
-           <Header/>
-           <MenuEL/>
+           {!isLogin && <Header/>}
+           {!isLogin && <MenuEL/>}
             <Routes>
-                <Route path='/' element={<div className='routeContainer flex items-center content-center'>{<LoginEL/>}</div>} />
+                <Route path='/' element={<div className='loginContainer flex items-center content-center h-[100vh] w-[100vw]'>{<LoginEL/>}</div>} />
+                <Route path='/Home' element={<div className='routeContainer flex items-center content-center'>{<LoginEL/>}</div>} />
             </Routes>
         </PageTransition>
     )

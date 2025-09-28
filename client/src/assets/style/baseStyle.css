@@ -91,7 +91,7 @@ body{
     }
     50%{background-position: 50%,0%;}
 }
-@media (max-width:1024px) {
+@media (max-width:1025px) {
     
     .menuDiv{
         width: 50px;
@@ -117,6 +117,7 @@ body{
         li{
             transition: all .6s ease-out;
             display: flex;
+            gap: 10px;
             align-items: center;
             flex-direction: row;
             padding: 5px;
@@ -136,6 +137,57 @@ body{
     ul:hover li:hover{
         opacity: .8;
     }
+}
+@media (max-width:426px) {
+    .menuDiv{
+        height: 50px;
+        width: 100%;
+        flex-direction: row !important;
+        .menuContainer{
+            height: 50px;
+            width: 100vw;
+            flex-direction: row;
+            background-color: var(--bg-color);
+            ul{
+                width: 100%;
+                flex-direction: row;
+                border: 1px;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1px;
+                font-size: 30px;
+                position: absolute;
+                bottom: 0px;
+
+                li:nth-child(3){
+                    display: none;
+                }
+            }
+        }
+        .Logotxt{
+            display: none;
+        }
+        .secul{
+            display: none;
+        }
+    }
+}
+
+.underTaker{
+    height: 100%; width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.my-scroll{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.my-scroll::-webkit-scrollbar{
+    display: none;
 }
 /* .container{
     height: 80vh; width: 80vw;
