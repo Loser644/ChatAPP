@@ -64,9 +64,10 @@ mysql/                    # SQL schema / migrations
 package.json              # Root scripts & deps
 README.md
 
-
+```
 ## ⚙️ Environment Variables
 
+```bash
 Create a `.env` file in the root and add your secrets (example keys):
  mySQL_host=YOUR_HOST(localhost)
  mySQL_user=YOUR_SQL-USERNAME

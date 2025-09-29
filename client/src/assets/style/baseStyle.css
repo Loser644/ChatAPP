@@ -197,13 +197,15 @@ body{
 }
 .face{
     position: absolute;
-    height: 100%; width: 100%;
+    height: 90%; width: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
     backface-visibility: hidden;
-    background-color: blue;
+    background-color: var(--bg-color);
+    box-shadow: 0px 0px 25px 5px rgba(80, 90, 80, 0.5);
     border-radius: 15px;
+    overflow: hidden;
 }
 .cube.-rotate-y-90 { transform: rotateY(-90deg); }
 .cube.-rotate-y-180 { transform: rotateY(-180deg); }
@@ -211,11 +213,49 @@ body{
 
 .face {
   backface-visibility: hidden;
-  transform: translateZ(200px);
+  transform: translateZ(220px);
 }
-.face.back { transform: rotateY(180deg) translateZ(200px); }
-.face.right { transform: rotateY(90deg) translateZ(200px); }
-.face.left { transform: rotateY(-90deg) translateZ(200px); }
+.face.back { transform: rotateY(180deg) translateZ(220px); }
+.face.right { transform: rotateY(90deg) translateZ(220px); }
+.face.left { transform: rotateY(-90deg) translateZ(220px); }
+
+.text-div {
+  height: 1.8rem;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  border-right: 1px solid var(--p-text-color);
+  animation: blink 0.6s step-end infinite, typing 2.6s steps(23) forwards infinite;
+}
+
+.text-div p {
+  display: block;
+  animation: moverr 15s steps(5) infinite;
+}
+
+/* cursor blinking */
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* typing animation synced with line switch */
+@keyframes typing {
+  0%   { width: 0; }
+  60%  { width: 23ch; }  /* typing done */
+  95%  { width: 23ch; }  /* hold */
+  100% { width: 23ch; }     /* reset before next line */
+}
+
+/* move lines exactly after each typing cycle */
+@keyframes moverr {
+  0%,19%    { transform: translateY(0%); }
+  20%,39%   { transform: translateY(-100%); }
+  40%,59%   { transform: translateY(-200%); }
+  60%,79%   { transform: translateY(-300%); }
+  80%,100%  { transform: translateY(-400%); }
+}
+
+
 /* .container{
     height: 80vh; width: 80vw;
     background-color: var(--mini-bg-color);

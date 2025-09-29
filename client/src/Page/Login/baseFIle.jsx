@@ -21,15 +21,17 @@ export default function LoginEL() {
                     ">
                         <img src="./Banner/banner.png" alt="bannerImage" className="z-0 absolute top-3 h-2/3" />
                         <div className="text-div flex items-start flex-col relative top-2/3 
-                        text-2xl gap-3 font-bold
+                        text-2xl font-bold
                         ">
-                            <p>Connect with people</p>
-                            <p>Stay Anonymous......</p>
-                            <p>And much more with CodeCove</p>
+                            <p>Connect with people..........</p>
+                            <p>Stay Anonymous...............</p>
+                            <p>Share & Gain Knowlage........</p>
+                            <p>And much more with CodeCove..</p>
+                            <p>Connect with people..........</p>
                         </div>
                     </div>
                     <div className="rightside h-full flex-1 !p-5 flex justify-center items-center">
-                        <div className="container !p-4 h-3/4 w-2/3 border flex items-center justify-center">
+                        <div className="container !p-4 h-3/4 w-2/3  flex items-center justify-center">
                             <div className="senceDiv h-full w-full perspective-distant flex items-center justify-center">
                                 <div className={`cube relative transform-3d transition-all duration-1000 flex items-center justify-center ${getRotation()}`}>
                                     <div className="face front">Login</div>
@@ -39,9 +41,6 @@ export default function LoginEL() {
                                 </div>
                             </div>
                         </div>
-                        <button onClick={()=>setFace("back")}>Back</button>
-                        <button onClick={()=>setFace("front")}>Front</button>
-                        <button onClick={()=>setFace("right")}>Right</button>
                     </div>
                 </div>
             </div>
