@@ -47,23 +47,24 @@ Here, you can connect with people **without revealing your real identity**. Shar
 ---
 ## 📂 Project Structure
 
-├── client/ # Vite + React frontend
-│ ├── index.html
-│ ├── vite.config.js
-│ └── src/
-├── server/ # Node.js auth + gateway (Express, Socket.IO)
-│ └── ...
-├── python-chat/ # FastAPI chat service (MongoDB)
-│ └── ...
-├── mysql/ # SQL schema / migrations
-│ └── init.sql
-├── .env # Environment variables (local)
-├── package.json # Root scripts & deps
-└── README.md
+```bash
+client/                   # Vite + React frontend
+├── index.html
+├── vite.config.js
+└── src/
 
----
+server/                   # Node.js auth + gateway (Express, Socket.IO)
 
----
+python-chat/              # FastAPI chat service (MongoDB)
+
+mysql/                    # SQL schema / migrations
+└── init.sql
+
+.env                      # Environment variables (local)
+package.json              # Root scripts & deps
+README.md
+
+
 ## ⚙️ Environment Variables
 
 Create a `.env` file in the root and add your secrets (example keys):
