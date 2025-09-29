@@ -189,6 +189,33 @@ body{
 .my-scroll::-webkit-scrollbar{
     display: none;
 }
+.cube{
+    position: relative;
+    transform: rotateY(0deg);
+    padding: 10px;
+    height: 60vh; width: 90%;
+}
+.face{
+    position: absolute;
+    height: 100%; width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+    background-color: blue;
+    border-radius: 15px;
+}
+.cube.-rotate-y-90 { transform: rotateY(-90deg); }
+.cube.-rotate-y-180 { transform: rotateY(-180deg); }
+.cube.rotate-y-90 { transform: rotateY(90deg); }
+
+.face {
+  backface-visibility: hidden;
+  transform: translateZ(200px);
+}
+.face.back { transform: rotateY(180deg) translateZ(200px); }
+.face.right { transform: rotateY(90deg) translateZ(200px); }
+.face.left { transform: rotateY(-90deg) translateZ(200px); }
 /* .container{
     height: 80vh; width: 80vw;
     background-color: var(--mini-bg-color);

@@ -1,16 +1,21 @@
+import { useEffect, useRef } from 'react';
 import {useThemeStore} from '../lib/toggleTheme';
 export default function ThemeButton() {
     const {theme,toggleTheme} = useThemeStore();
-
+    let inpRef=useRef();
     const handler = ()=>{
       let inp = theme==="light" ? "dark" : "light";
       toggleTheme(inp);
     }
+    useEffect(()=>{
+      let currentinp = inpRef.current;
+      theme === "dark" ? currentinp.checked = true:"";
+    },[])
     return(
 <label className="relative inline-flex items-center cursor-pointer">
-      <input
+      <input ref={inpRef}  
         type="checkbox" onClick={handler}
-        checked={theme === "dark"} // make it reflect the current theme
+        // checked={theme === "dark"} // make it reflect the current theme
         className="sr-only peer"
       />
       <div
