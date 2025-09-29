@@ -44,6 +44,7 @@ Here, you can connect with people **without revealing your real identity**. Shar
 
 ---
 
+---
 ## 📂 Project Structure
 
 ├── client/ # Vite + React frontend
@@ -60,6 +61,9 @@ Here, you can connect with people **without revealing your real identity**. Shar
 ├── package.json # Root scripts & deps
 └── README.md
 
+---
+
+---
 ## ⚙️ Environment Variables
 
 Create a `.env` file in the root and add your secrets (example keys):
@@ -70,3 +74,5 @@ Create a `.env` file in the root and add your secrets (example keys):
  mySQL_DB=YOUR_DATABASENAME
  mail_user=YOUR EMAIL **(FROM WHICH YOU WANT TO SEND THE EMAIL)**
  mail_pass=YOUR PASSWORD **(NOT THE GOOGLE ACCOUNT PASSWORD)**
+
+ ---
