@@ -3,11 +3,13 @@
     --bg-color: rgb(255, 255, 255);
     --text-color: #000000;
     --p-text-color:#363636;
+    --login-txt-color:black;
 }
 [data-theme='dark']{
     --bg-color: rgb(13, 13, 13);
     --text-color: #fff700;
     --p-text-color:#fbff7d;
+    --login-txt-color:white;
 }
 *{
     margin: 0px;
@@ -178,7 +180,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    padding: 5px;
 }
 .my-scroll{
     overflow-x: hidden;
@@ -202,17 +204,22 @@ body{
     align-items: center;
     justify-content: center;
     backface-visibility: hidden;
+    pointer-events: none;
     background-color: var(--bg-color);
     box-shadow: 0px 0px 25px 5px rgba(80, 90, 80, 0.5);
     border-radius: 15px;
-    overflow: hidden;
 }
 .cube.-rotate-y-90 { transform: rotateY(-90deg); }
 .cube.-rotate-y-180 { transform: rotateY(-180deg); }
 .cube.rotate-y-90 { transform: rotateY(90deg); }
 
+.cube.show-front .face.front,
+.cube.show-right .face.right,
+.cube.show-back .face.back,
+.cube.show-left .face.left {
+  pointer-events: auto;
+}
 .face {
-  backface-visibility: hidden;
   transform: translateZ(220px);
 }
 .face.back { transform: rotateY(180deg) translateZ(220px); }
@@ -223,14 +230,14 @@ body{
   height: 1.8rem;
   overflow: hidden;
   white-space: nowrap;
-  width: 0;
+  width: 25ch;
   border-right: 1px solid var(--p-text-color);
-  animation: blink 0.6s step-end infinite, typing 2.6s steps(23) forwards infinite;
+  animation: blink 0.6s step-end infinite;
 }
 
 .text-div p {
   display: block;
-  animation: moverr 15s steps(5) infinite;
+  animation: moverr 30s steps(10) infinite;
 }
 
 /* cursor blinking */
@@ -241,21 +248,118 @@ body{
 /* typing animation synced with line switch */
 @keyframes typing {
   0%   { width: 0; }
-  60%  { width: 23ch; }  /* typing done */
-  95%  { width: 23ch; }  /* hold */
-  100% { width: 23ch; }     /* reset before next line */
+  60%  { width: 25ch; }  /* typing done */
+  95%  { width: 25ch; }  /* hold */
+  100% { width: 25ch; }     /* reset before next line */
 }
 
 /* move lines exactly after each typing cycle */
 @keyframes moverr {
-  0%,19%    { transform: translateY(0%); }
-  20%,39%   { transform: translateY(-100%); }
-  40%,59%   { transform: translateY(-200%); }
-  60%,79%   { transform: translateY(-300%); }
-  80%,100%  { transform: translateY(-400%); }
+  0%, 9%     { transform: translateY(0%); }
+  10%, 19%   { transform: translateY(-100%); }
+  20%, 29%   { transform: translateY(-200%); }
+  30%, 39%   { transform: translateY(-300%); }
+  40%, 49%   { transform: translateY(-400%); }
+  50%, 59%   { transform: translateY(-500%); }
+  60%, 69%   { transform: translateY(-600%); }
+  70%, 79%   { transform: translateY(-700%); }
+  80%, 89%   { transform: translateY(-800%); }
+  90%, 100%  { transform: translateY(-900%); }
 }
 
 
+
+.formDiv{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 5px;
+    z-index: 20;
+    position: absolute;
+    form{
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        position: relative;
+
+        .inputDiv{
+            height: 50px;
+            width: 250px;
+            color: var(--login-txt-color);
+            border-radius: 15px;
+            position: relative;
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            
+            input{
+                all: unset;
+                padding: 8px;
+                width: 100%;
+                border-radius: 12px;
+                border: 2px solid transparent;
+                box-shadow: 0px 0px 10px 2px rgba(80, 90, 80, 0.5);
+                transition: .7s ease-in-out;
+                font-size: small !important;
+                font-weight: 300;
+
+                &:focus{
+                    border: 2px solid;
+                    box-shadow: none;
+                    border-color: blue;
+                }
+                &:focus~label{
+                    transform: translate(5px,-25px);
+                    background-color: var(--bg-color);
+                    i{
+                        color: blue;
+                    }
+                }
+            }
+            label{
+                position: absolute;
+                top: 10px;
+                left: 5px;
+                transition: .7s all;
+                padding-right: 5px;
+                cursor: text;
+            }
+        }
+    }
+}
+.btn{
+    background-color: rgb(39, 39, 251);
+    color: white;
+    outline: none;
+    border: none;
+    padding: 7px;
+    border-radius: 10px;
+}
+.text-btn{
+    color: rgb(39, 39, 251);
+    outline: none;
+    border: none;
+    font-size: small;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+}
+form>h1>span{
+    font-family: 'Times New Roman', Times, serif;
+    display: inline-block;
+    vertical-align: bottom;
+    overflow: hidden;
+    height: 1.5rem;
+    color: var(--text-color);
+    margin-left: 10px;
+    span{
+        display: block;
+        font-weight: bold;
+        animation: moverr 10s infinite ease-in-out;
+    }
+}
 /* .container{
     height: 80vh; width: 80vw;
     background-color: var(--mini-bg-color);
