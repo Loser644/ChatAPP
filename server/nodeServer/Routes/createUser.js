@@ -20,12 +20,12 @@ async function deleImg(avatar) {
     }
 }
 export const CreateUser = async (rkv,rspo) => {
-    let {name,email,password,username} = rkv.body;
+    let {email,password,username} = rkv.body;
     if (!rkv.file) {
         return rspo.send({err:"Please set your dp"})
     }
     let avatar = "Images/Avtar/"+rkv.file.filename;
-    if(!name || !password || !username || !email || !name.trim() || !password.trim() || !username.trim() || !email.trim()) {
+    if( !password || !username || !email || !password.trim() || !username.trim() || !email.trim()) {
         let rslt = await deleImg(avatar);
         if (!rslt.status) return rspo.status(501).send({err:rslt.err})
         return rspo.status(400).send({err:"Please provide peroper information"});
@@ -63,15 +63,15 @@ export const CreateUser = async (rkv,rspo) => {
     try {
         let send = await sendTheMail(
             email,
-            "Welcome to MyApp🎉",
+            "Welcome to CodeCove🎉",
             "wellcome",
-            {name,otp}
+            {username,otp}
         )
-        rspo.send({send});
-        // let hashPass = await bcrypt.hash(password,10);
-        // let createquery="INSERT INTO users (name,username,email,password,avatar) VALUES (?,?,?,?,?)";
-        // let request = await connection.query(createquery,[name,username,email,hashPass,avatar])
-        // rspo.status(201).send({pass:"Created",request})
+        // rspo.send({send});
+        let hashPass = await bcrypt.hash(password,10);
+        let createquery="INSERT INTO users (name,username,email,password,avatar) VALUES (?,?,?,?,?)";
+        let request = await connection.query(createquery,[username,email,hashPass,avatar])
+        rspo.status(201).send({send,pass:"Created",request})
     } catch (error) {
         let rslt = await deleImg(avatar);
         if (!rslt.status) return rspo.status(501).send({err:rslt.err})
