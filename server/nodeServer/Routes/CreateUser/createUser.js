@@ -31,10 +31,10 @@ export const CreateUser = async (rkv,rspo) => {
         return rspo.status(400).send({err:"Please provide peroper information"});
     }
 
-    if(!/^[A-Z][a-z]+(?: [A-Z][a-z]+)*/.test(name)) {
-        let rslt = await deleImg(avatar);
-        if (!rslt.status) return rspo.status(501).send({err:rslt.err})
-        return rspo.status(400).send({err:"Enter a valid Name"});}
+    // if(!/^[A-Z][a-z]+(?: [A-Z][a-z]+)*/.test(name)) {
+    //     let rslt = await deleImg(avatar);
+    //     if (!rslt.status) return rspo.status(501).send({err:rslt.err})
+    //     return rspo.status(400).send({err:"Enter a valid Name"});}
     
     if (
         //!email.endsWith("@gmail.com") ||
@@ -51,13 +51,13 @@ export const CreateUser = async (rkv,rspo) => {
         let dublicate = await checkDublicate(isDublicate,username,email);
         let rslt = await deleImg(avatar);
         if (!rslt.status) return rspo.status(501).send({err:rslt.err})
-        return rspo.status(302).send({err:`${dublicate} Already Taken`});
+        return rspo.status(302).send({err:`${dublicate} Already have an account`});
     }
 
     if (!/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(password)) {
         let rslt = await deleImg(avatar);
         if (!rslt.status) return rspo.status(501).send({err:rslt.err})
-        return rspo.status(400).send({err:"password length atlist 6"})
+        return rspo.status(400).send({err:"password length > 5"})
     }
     const otp = Math.floor(100000 + Math.random() * 900000);
     try {
@@ -69,7 +69,7 @@ export const CreateUser = async (rkv,rspo) => {
         )
         // rspo.send({send});
         let hashPass = await bcrypt.hash(password,10);
-        let createquery="INSERT INTO users (name,username,email,password,avatar) VALUES (?,?,?,?,?)";
+        let createquery="INSERT INTO users (username,email,password,avatar) VALUES (?,?,?,?)";
         let request = await connection.query(createquery,[username,email,hashPass,avatar])
         rspo.status(201).send({send,pass:"Created",request})
     } catch (error) {

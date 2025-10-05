@@ -7,6 +7,7 @@ import fs from 'fs';
 //import path from 'path';
 import multer from 'multer';
 import { CreateUser } from './Routes/CreateUser/createUser.js';
+import {getUsers} from './Routes/getUsers/getUsers.js';
 myApp.use(express.json({limit:"1gb"}));
 myApp.use(cookieParser());
 myApp.use("/Images",express.static('Images'));
@@ -42,15 +43,7 @@ const upload = multer({
     limits: { fileSize: 2 * 1024 * 1024 } // 2 MB
 });
 
-// myApp.get("/test",async (rkv,rspo) => { // just a test api 
-//     try {
-//         let [rows] = await connection.query("SELECT * FROM USERS;")
-//         rspo.status(201).send({rows});
-//     } catch (error) {
-//         rspo.status(500).send({msg:"Something went wrong",details:error.message});
-//     }
-// })
-
+myApp.get("/getUsername",getUsers)
 
 myApp.post("/CreateUser",upload.single("file"),CreateUser)
 myApp.listen(port,()=>{

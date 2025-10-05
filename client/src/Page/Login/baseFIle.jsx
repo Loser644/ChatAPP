@@ -50,7 +50,7 @@ export default function LoginEL() {
                                     <div className="face back">Forgot</div>
                                     <div className="face left"><VerifyEl/></div>
                                 </div>
-                                <button onClick={()=>setTab("left")}>Sgin</button>
+                                <button onClick={()=>setTab("right")}>Sgin</button>
                             </div>
                         </div>
                     </div>

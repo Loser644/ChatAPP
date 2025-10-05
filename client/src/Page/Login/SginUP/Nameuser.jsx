@@ -1,6 +1,25 @@
+import { useEffect, useState } from "react";
 import FaceToggle from "../../../lib/tabToggle";
 export default function UserNameEl({stoggle}) {
     const {setTab} = FaceToggle();
+    const [username,setUsername] = useState("");
+    const [debounceVal,setDeVal] = useState("");
+    const [cache] = useState(new Map());
+
+    useEffect(()=>{
+        const handler = setTimeout(() => {
+            if (username.length>=4) {
+                setDeVal(username);
+                
+            }
+        }, 500);
+        return ()=> clearTimeout(handler);
+    },[username]);
+
+    const handleSubmit = async (evnt) => {
+        evnt.preventDefault();
+        
+    }
     return(
         <div className="underTaker">
             <div className="nameComDiv flex items-center justify-center">
@@ -24,17 +43,19 @@ export default function UserNameEl({stoggle}) {
                                 <span>Ahead, Follow the Revolution</span>
                                 <span>Hidden, Yet Heard</span>
                             </span>
-                        </h1> */}
+                            </h1> */}
+                            <div className="inputDiv">
+                                <input type="text"
+                                    onChange={(evnt)=>setUsername(evnt.target.value)}
+                                id="UserName" autoComplete="" name="username" value={username} required/>
+                                <label htmlFor="UserName"><i className="bx bx-user">Username</i></label>
+                            </div>
                         <div className="inputDiv">
-                            <input type="text" id="FullName" required />
-                            <label htmlFor="FullName"><i className="bx bx-id-card">Name</i></label>
+                            <input type="text" id="email" name="email" required />
+                            <label htmlFor="email"><i className="bx bx-id-card">Email</i></label>
                         </div>
                         <div className="inputDiv">
-                            <input type="text" id="UserName" required/>
-                            <label htmlFor="UserName"><i className="bx bx-user">Username</i></label>
-                        </div>
-                        <div className="inputDiv">
-                            <button type="button" className="text-btn" onClick={()=>setTab("front")} >Create Account</button>
+                            <button type="button" className="text-btn" onClick={()=>setTab("front")} >Already have Account?</button>
                             <button type="submit" className="btn">Next</button>
                         </div>
                     </form>
