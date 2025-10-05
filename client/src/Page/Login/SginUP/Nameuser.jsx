@@ -7,14 +7,48 @@ export default function UserNameEl({stoggle}) {
     const [cache] = useState(new Map());
 
     useEffect(()=>{
-        const handler = setTimeout(() => {
+        const handler = setTimeout( () => {
             if (username.length>=4) {
                 setDeVal(username);
-                
+                checkUsername()
             }
         }, 500);
         return ()=> clearTimeout(handler);
     },[username]);
+
+    const checkUsername = async () => {
+        if(cache.size>0){
+
+        }else{
+            try {
+                let request = await fetch(`/myServer/getUsername?username=${username}`)
+                let result = await request.json();
+                console.log(result)
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+    }
+    const handleBlur = (inp)=>{
+        if (inp && inp.value) {
+            let labl = inp.nextElementSibling;
+            labl.classList.add('activeLabl');
+        } else if(inp && !inp.value) {
+            let lbl = inp.nextElementSibling;
+            lbl.classList.remove('activeLabl');
+        }else{
+            let divs = document.querySelectorAll('.inputDiv');
+            divs.forEach(inpDiv=>{
+                let input = inpDiv.querySelector('input');
+                let lbal = inpDiv.querySelector('label');
+                if (input && !input.value) {
+                    lbal.classList.remove('activeLabl');
+                } else if(input && input.value){
+                    lbal.classList.add('activeLabl')
+                }
+            })
+        }
+    }
 
     const handleSubmit = async (evnt) => {
         evnt.preventDefault();
@@ -46,12 +80,13 @@ export default function UserNameEl({stoggle}) {
                             </h1> */}
                             <div className="inputDiv">
                                 <input type="text"
+                                onBlur={(evnt)=>handleBlur(evnt.target)}
                                     onChange={(evnt)=>setUsername(evnt.target.value)}
                                 id="UserName" autoComplete="" name="username" value={username} required/>
                                 <label htmlFor="UserName"><i className="bx bx-user">Username</i></label>
                             </div>
                         <div className="inputDiv">
-                            <input type="text" id="email" name="email" required />
+                            <input type="text" onBlur={(evnt)=>handleBlur(evnt.target)} id="email" name="email" required />
                             <label htmlFor="email"><i className="bx bx-id-card">Email</i></label>
                         </div>
                         <div className="inputDiv">

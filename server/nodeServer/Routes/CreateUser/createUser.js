@@ -1,4 +1,4 @@
-import {connection} from '../../Controllers/myConnectionFile.js';
+import {database} from '../../Controllers/myConnectionFile.js';
 import bcrypt from 'bcrypt';
 import fs from 'fs';
 import {sendTheMail} from '../../Controllers/nodemailer.js';

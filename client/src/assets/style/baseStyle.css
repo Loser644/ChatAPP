@@ -316,23 +316,36 @@ body{
                     border-color: blue;
                 }
                 &:focus~label{
-                    transform: translate(5px,-25px);
+                    transform: translate(5px,-20px);
                     background-color: var(--bg-color);
+                    opacity: 1;
                     i{
-                        color: blue;
+                        color: blue !important;
                     }
                 }
             }
             label{
                 position: absolute;
-                top: 10px;
-                left: 5px;
+                top: 8px;
+                left: 7px;
                 transition: .7s all;
                 padding-right: 5px;
                 cursor: text;
+                opacity: .7;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
     }
+}
+.activeLabl{
+    transform: translate(5px,-20px);
+                    background-color: var(--bg-color);
+                    opacity: 1;
+                    i{
+                        color: var(--text-color);
+                    }
 }
 .btn{
     background-color: rgb(39, 39, 251);

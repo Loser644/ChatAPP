@@ -19,5 +19,5 @@ async function setConnection() {
         console.log(chalk.red("something went wrong"+error.message))
     }
 }
-const connection = await setConnection();
-export {connection}
+const database = await setConnection();
+export {database}
