@@ -7,7 +7,8 @@
     "web":"vite --config client/vite.config.js",
     "dev": "concurrently \"nodemon server/myServer.js\" \"vite --config client/vite.config.js\"",
     "build": "vite build --config client/vite.config.js",
-    "serve": "nodemon server/nodeServer/myServer.js"
+    "serve": "nodemon server/nodeServer/myServer.js",
+    "migrate": "node server/nodeServer/mySQL/migrate.js"
   },
   "keywords": [],
   "author": "",

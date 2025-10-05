@@ -1,14 +1,17 @@
---===================================
---    🗄️database: if not exists;
---===================================
+/*
+===================================
+    🗄️database: if not exists;
+===================================
+*/
 
 CREATE DATABASE IF NOT EXISTS codecove_db;
-
 USE codecove_db;
 
---===================================
---   🧑‍💻Create the users table if not exists;
---===================================
+/*
+===================================
+  🧑‍💻Create the users table if not exists;
+===================================
+*/
 
 CREATE TABLE IF NOT EXISTS users (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
