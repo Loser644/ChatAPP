@@ -1,13 +1,12 @@
 import express from 'express';
 import chalk from 'chalk';
-import {connection} from './Controllers/myConnectionFile.js';
 let myApp = express();
 import cookieParser from 'cookie-parser';
 let port = 3222;
 import fs from 'fs';
 //import path from 'path';
 import multer from 'multer';
-import { CreateUser } from './Routes/createUser.js';
+import { CreateUser } from './Routes/CreateUser/createUser.js';
 myApp.use(express.json({limit:"1gb"}));
 myApp.use(cookieParser());
 myApp.use("/Images",express.static('Images'));

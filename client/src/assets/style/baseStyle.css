@@ -237,6 +237,7 @@ body{
 
 .text-div p {
   display: block;
+  margin-left: 60px;
   animation: moverr 30s steps(10) infinite;
 }
 
@@ -267,7 +268,11 @@ body{
   90%, 100%  { transform: translateY(-900%); }
 }
 
-
+.numinp::-webkit-inner-spin-button,
+            .numinp::-webkit-outer-spin-button{
+                -webkit-appearance: none !important;
+                margin: 0 !important;
+            }
 
 .formDiv{
     display: flex;
@@ -283,7 +288,7 @@ body{
         flex-direction: column;
         gap: 20px;
         position: relative;
-
+        
         .inputDiv{
             height: 50px;
             width: 250px;

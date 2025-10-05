@@ -1,7 +1,7 @@
-import {connection} from '../Controllers/myConnectionFile.js';
+import {connection} from '../../Controllers/myConnectionFile.js';
 import bcrypt from 'bcrypt';
 import fs from 'fs';
-import {sendTheMail} from '../Controllers/nodemailer.js';
+import {sendTheMail} from '../../Controllers/nodemailer.js';
 async function checkDublicate(sqlData,username,email) {
     //console.log(email,username,sqlData)
     if (sqlData.some(prv=> prv.username === username)) {

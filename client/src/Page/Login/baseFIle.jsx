@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import SginUp from "./SginUP/sginUp";
 import FaceToggle from "../../lib/tabToggle";
+import VerifyEl from "./SginUP/verifyEmail";
 export default function LoginEL() {
     const {currentTab,setTab} = FaceToggle();
     let [face,setFace] = useState(currentTab);
@@ -26,17 +27,17 @@ export default function LoginEL() {
                         <img src="./Banner/banner.png" alt="bannerImage" className="z-0 absolute top-3 h-2/3" />
                         <div className="text-div flex items-start flex-col relative top-2/3 
                         text-2xl font-bold
-                        ">
-                            <p>Stay Safe, Stay Anonymous</p>
-                            <p>Stay Curious, Keep Building</p>
-                            <p>Stay Connected, Without Labels</p>
-                            <p>Stay Inspired, Share Your Code</p>
-                            <p>Stay Ahead, Follow the Revolution</p>
-                            <p>Stay Bold, Break the Silence</p>
-                            <p>Stay Sharp, Learn Everyday</p>
-                            <p>Stay True, No Filters</p>
-                            <p>Stay Free, Express Without Fear</p>
-                            <p>Stay Hidden, Yet Heard</p>
+                        "><span className="text-red-500">Stay</span>
+                            <p> Safe, Stay Anonymous</p>
+                            <p> Curious, Keep Building</p>
+                            <p> Connected, Without Labels</p>
+                            <p> Inspired, Share Your Code</p>
+                            <p> Ahead, Follow the Revolution</p>
+                            <p> Bold, Break the Silence</p>
+                            <p> Sharp, Learn Everyday</p>
+                            <p> True, No Filters</p>
+                            <p> Free, Express Without Fear</p>
+                            <p> Hidden, Yet Heard</p>
                                 
                         </div>
                     </div>
@@ -47,9 +48,9 @@ export default function LoginEL() {
                                     <div className="face front">Login</div>
                                     <div className="face right"><SginUp toggle={setFace}/></div>
                                     <div className="face back">Forgot</div>
-                                    <div className="face left">Verify</div>
+                                    <div className="face left"><VerifyEl/></div>
                                 </div>
-                                <button onClick={()=>setTab("right")}>Sgin</button>
+                                <button onClick={()=>setTab("left")}>Sgin</button>
                             </div>
                         </div>
                     </div>
