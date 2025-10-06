@@ -1,29 +1,62 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FaceToggle from "../../../lib/tabToggle";
+import {toast} from 'react-toastify'
 export default function UserNameEl({stoggle}) {
     const {setTab} = FaceToggle();
     const [username,setUsername] = useState("");
-    const [debounceVal,setDeVal] = useState("");
-    const [cache] = useState(new Map());
+    // const [debounceVal,setDeVal] = useState("");
+    const [takenList,setList] = useState([]);
+    const [cache,setCache] = useState([]);
+    let divRef = useRef();
+    let timeoutId; // define outside function (component scope or useRef)
+
+    function checkAv() {
+    // remove previous classes before adding a new one
+    divRef.current.classList.remove('avlbl', 'notavlbl');
+
+    if (takenList.length > 0) {
+        if (takenList.includes(username)) {
+        divRef.current.classList.add('notavlbl');
+        } else {
+        divRef.current.classList.add('avlbl');
+        setCache([])
+        }
+    } else {
+        divRef.current.classList.add('avlbl');
+    }
+
+    // clear any previous timeout to avoid overlapping removals
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+        divRef.current.classList.remove('avlbl', 'notavlbl');
+    }, 3000);
+    }
 
     useEffect(()=>{
         const handler = setTimeout( () => {
             if (username.length>=4) {
-                setDeVal(username);
+                // setDeVal(username);
                 checkUsername()
             }
         }, 500);
         return ()=> clearTimeout(handler);
     },[username]);
-
     const checkUsername = async () => {
-        if(cache.size>0){
-
+        if(cache.length>0){
+            checkAv();
         }else{
             try {
                 let request = await fetch(`/myServer/getUsername?username=${username}`)
                 let result = await request.json();
-                console.log(result)
+                if (result.avalable === true) {
+                    checkAv();
+                } else {
+                    setCache(result.suggestion);
+                    setList(result.takenList);
+                    checkAv();
+                }
+                console.log(cache)
             } catch (error) {
                 console.log(error.message)
             }
@@ -78,13 +111,20 @@ export default function UserNameEl({stoggle}) {
                                 <span>Hidden, Yet Heard</span>
                             </span>
                             </h1> */}
-                            <div className="inputDiv">
+                            <div ref={divRef} className="inputDiv">
                                 <input type="text"
                                 onBlur={(evnt)=>handleBlur(evnt.target)}
                                     onChange={(evnt)=>setUsername(evnt.target.value)}
                                 id="UserName" autoComplete="" name="username" value={username} required/>
                                 <label htmlFor="UserName"><i className="bx bx-user">Username</i></label>
+                                <i id="checkbox" className="bx bxs-check-circle absolute right-0 top-2 transition-all duration-700 "></i>
+                             <div className="suggestionDiv absolute flex items-center justify-center bottom-[-14px] gap-1.5">
+                                {cache?.map((value,index)=>(
+                                    <p onClick={()=>{setUsername(value),setCache([])}} className=" rounded-2xl text-[11px] " key={index}>{value}</p>
+                                ))}
                             </div>
+                            </div>
+                            
                         <div className="inputDiv">
                             <input type="text" onBlur={(evnt)=>handleBlur(evnt.target)} id="email" name="email" required />
                             <label htmlFor="email"><i className="bx bx-id-card">Email</i></label>
