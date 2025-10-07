@@ -358,6 +358,11 @@ body{
     border: none;
     padding: 7px;
     border-radius: 10px;
+    cursor: pointer;
+
+    &:hover{
+        background-color: rgb(90, 90, 255);
+    }
 }
 .text-btn{
     color: rgb(39, 39, 251);
@@ -367,6 +372,10 @@ body{
     font-weight: bold;
     padding: 10px;
     cursor: pointer;
+     
+    &:hover{
+        color: rgb(90, 90, 255);
+    }
 }
 form>h1>span{
     font-family: 'Times New Roman', Times, serif;
@@ -427,6 +436,19 @@ form>h1>span{
   70%  { transform: translateX(4px); }
   90%  { transform: translateX(-2px); }
   100% { transform: translateX(0); }
+}
+.twobtnInput{
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: wrap;
+    gap: 10px;
+.bigBtn{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 }
 /* .container{
     height: 80vh; width: 80vw;

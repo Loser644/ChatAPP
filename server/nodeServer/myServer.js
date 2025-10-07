@@ -43,7 +43,9 @@ const upload = multer({
     limits: { fileSize: 2 * 1024 * 1024 } // 2 MB
 });
 
-myApp.get("/getUsername",getUsers)
+myApp.get("/getUsername",getUsers);
+
+//myApp.post("/verifyEmail");
 
 myApp.post("/CreateUser",upload.single("file"),CreateUser)
 myApp.listen(port,()=>{

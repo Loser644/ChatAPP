@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import SginUp from "./SginUP/sginUp";
 import FaceToggle from "../../lib/tabToggle";
 import VerifyEl from "./SginUP/verifyEmail";
+import LoginCon from "./loginEl";
 export default function LoginEL() {
     const {currentTab,setTab} = FaceToggle();
     let [face,setFace] = useState(currentTab);
@@ -45,12 +46,12 @@ export default function LoginEL() {
                         <div className="container !p-4 h-3/4 w-2/3  flex items-center justify-center">
                             <div className="senceDiv h-full w-full perspective-distant flex items-center justify-center">
                                 <div className={`cube relative transform-3d transition-all duration-1000 flex items-center justify-center ${getRotation()}`}>
-                                    <div className="face front">Login</div>
+                                    <div className="face front"><LoginCon/></div>
                                     <div className="face right"><SginUp toggle={setFace}/></div>
                                     <div className="face back">Forgot</div>
                                     <div className="face left"><VerifyEl/></div>
                                 </div>
-                                <button onClick={()=>setTab("right")}>Sgin</button>
+                               
                             </div>
                         </div>
                     </div>
