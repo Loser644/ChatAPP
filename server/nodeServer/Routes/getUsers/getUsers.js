@@ -20,7 +20,7 @@ export const getUsers = async (rkv,rspo) => {
    let {username} = rkv.query;
     try {
     let [isrow] = await database.query('SELECT username FROM USERS WHERE username=?',[username]);
-        console.log(isrow)
+        console.log(isrow);
     if (isrow.length===0) {
         return rspo.status(201).send({avalable:true,suggestion:[]});
     }

@@ -50,6 +50,7 @@ export default function UserNameEl({stoggle}) {
                 let request = await fetch(`/myServer/getUsername?username=${username}`)
                 let result = await request.json();
                 if (result.avalable === true) {
+                    console.log("i am here ")
                     checkAv();
                 } else {
                     setCache(result.suggestion);

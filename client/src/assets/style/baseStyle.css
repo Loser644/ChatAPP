@@ -316,7 +316,7 @@ body{
 
                 &:focus{
                     border: 2px solid;
-                    box-shadow: none;
+                    box-shadow: none !important;
                     border-color: blue;
                 }
                 &:focus~label{
