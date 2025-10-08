@@ -1,13 +1,14 @@
 import express from 'express';
 import chalk from 'chalk';
 let myApp = express();
-import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser'
 let port = 3222;
 import fs from 'fs';
 //import path from 'path';
 import multer from 'multer';
 import { CreateUser } from './Routes/CreateUser/createUser.js';
 import {getUsers} from './Routes/getUsers/getUsers.js';
+import {SendEmailVerify, verifyEmail } from './Routes/CreateUser/verifyUser.js';
 myApp.use(express.json({limit:"1gb"}));
 myApp.use(cookieParser());
 myApp.use("/Images",express.static('Images'));
@@ -45,8 +46,9 @@ const upload = multer({
 
 myApp.get("/getUsername",getUsers);
 
-//myApp.post("/verifyEmail");
+myApp.post("/sendVerifyEmail",SendEmailVerify);
 
+myApp.post("/verifyEmail",verifyEmail)
 myApp.post("/CreateUser",upload.single("file"),CreateUser)
 myApp.listen(port,()=>{
     console.log(chalk.greenBright.yellow.italic.bold("server is start on "+port))

@@ -4,7 +4,7 @@
   "main": "server/nodeServer/myServer.js",
   "type": "module",
   "scripts": {
-    "web":"vite --config client/vite.config.js",
+    "web": "vite --config client/vite.config.js",
     "dev": "concurrently \"nodemon server/myServer.js\" \"vite --config client/vite.config.js\"",
     "build": "vite build --config client/vite.config.js",
     "serve": "nodemon server/nodeServer/myServer.js",

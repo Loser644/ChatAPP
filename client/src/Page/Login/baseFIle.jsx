@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import SginUp from "./SginUP/sginUp";
 import FaceToggle from "../../lib/tabToggle";
 import VerifyEl from "./SginUP/verifyEmail";
 import LoginCon from "./loginEl";
+import verifyZu from "../../lib/verifyZu";
 export default function LoginEL() {
     const {currentTab,setTab} = FaceToggle();
     let [face,setFace] = useState(currentTab);
+    const {verifyTab} = verifyZu();
+    const [isVerifying,setVStatus] = useState(verifyTab);
 
+    useEffect(()=>{
+        setVStatus(verifyTab);
+    },[verifyTab])
     useEffect(()=>{
         setFace(currentTab)
     },[currentTab])
@@ -21,6 +27,10 @@ export default function LoginEL() {
     }
     return(
         <div className="underTaker">
+
+            {isVerifying && <div className="baseverifyDiv flex items-center justify-center">
+                <VerifyEl/>
+            </div>}
             <div className="login my-scroll h-full w-full flex flex-col items-center text-skin-text">
                 <div className="loginbase p-4 h-[100vh] w-full flex items-center flex-row">
                     <div className="leftside h-full flex-1 flex items-center flex-col
@@ -49,7 +59,7 @@ export default function LoginEL() {
                                     <div className="face front"><LoginCon/></div>
                                     <div className="face right"><SginUp toggle={setFace}/></div>
                                     <div className="face back">Forgot</div>
-                                    <div className="face left"><VerifyEl/></div>
+                                    <div className="face left"></div>
                                 </div>
                                
                             </div>

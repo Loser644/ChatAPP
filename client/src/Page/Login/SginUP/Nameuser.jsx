@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import FaceToggle from "../../../lib/tabToggle";
 import {toast} from 'react-toastify'
+import verifyZu from "../../../lib/verifyZu";
 export default function UserNameEl({stoggle}) {
     const {setTab} = FaceToggle();
+    const {setMail,setTUsername,setVTab} = verifyZu();
     const [username,setUsername] = useState("");
     // const [debounceVal,setDeVal] = useState("");
     const [takenList,setList] = useState([]);
@@ -85,13 +87,35 @@ export default function UserNameEl({stoggle}) {
 
     const handleSubmit = async (evnt) => {
         evnt.preventDefault();
-        
+        let formData = new FormData(evnt.target);
+        let {username, email} = Object.fromEntries(formData);
+        if (cache.includes(username)) {
+            return toast.info(username+" is Already Taken");
+        }
+        try {
+            let request = await fetch("/myServer/sendVerifyEmail",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({username,email})
+            })
+            let result = await request.json();
+            if (result.pass) {
+                setMail(email)
+                setTUsername(username)
+                toast.success("We sucsfuLy send the otp ")
+                setVTab(true)
+            }
+        } catch (error) {
+            console.log(error.message)
+        }
     }
     return(
         <div className="underTaker">
             <div className="nameComDiv flex items-center justify-center">
                 <div className="formDiv">
-                    <form action="">
+                    <form action="" onSubmit={handleSubmit}>
                         <div className="Logotxt flex items-center flex-col w-[120px] absolute top-[-100px]">
                             <i className='bx bx-code-block text-5xl
                             transition-all duration-500 ease-in-out bg-[length:200%_200%]
@@ -115,7 +139,7 @@ export default function UserNameEl({stoggle}) {
                                 <input type="text"
                                 onBlur={(evnt)=>handleBlur(evnt.target)}
                                     onChange={(evnt)=>setUsername(evnt.target.value)}
-                                id="UserName" autoComplete="" name="username" value={username} required/>
+                                id="UserName" autoComplete="username" name="username" value={username} required/>
                                 <label htmlFor="UserName"><i className="bx bx-user">Username</i></label>
                                 <i id="checkbox" className="bx bxs-check-circle absolute right-0 top-2 transition-all duration-700 "></i>
                              <div className="suggestionDiv absolute flex items-center justify-center bottom-[-14px] gap-1.5">

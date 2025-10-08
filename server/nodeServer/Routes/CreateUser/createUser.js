@@ -70,7 +70,7 @@ export const CreateUser = async (rkv,rspo) => {
         // rspo.send({send});
         let hashPass = await bcrypt.hash(password,10);
         let createquery="INSERT INTO users (username,email,password,avatar) VALUES (?,?,?,?)";
-        let request = await connection.query(createquery,[username,email,hashPass,avatar])
+        let request = await database.query(createquery,[username,email,hashPass,avatar])
         rspo.status(201).send({send,pass:"Created",request})
     } catch (error) {
         let rslt = await deleImg(avatar);

@@ -1,15 +1,37 @@
 import React, { useEffect, useRef,useState } from 'react'
-export default function VerifyEl({email}) {
-
+import verifyZu from '../../../lib/verifyZu';
+import { toast } from 'react-toastify';
+export default function VerifyEl() {
+    const {email,username} = verifyZu();
     let btnRef = useRef();
+    const handleAPICall = async () => {
+     // if (btnRef.current.disabled != true) {
+        console.log(email,username)
+        try {
+            let request = await fetch("/myServer/sendVerifyEmail",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({username,email})
+            })
+            let result = await request.json();
+            if (result.pass) {
+                toast.success("We Succesfully! send the OTP again")
+            }else{
+              toast.error("Something went wrong please refres")
+            }
+        } catch (error) {
+            console.log(error.message)
+        }
+      //}
+    }
     function setCoundown() {
-        let coundown = 60;
-
+        let coundown = 5;
         let btn= btnRef.current;
         btn.disabled = true;
         btn.style.opacity = 0.7;
         btn.textContent = `${coundown}`
-
         const intervel = setInterval(()=>{
             coundown--;
             btn.textContent = ` Resend in ${coundown}`
@@ -44,6 +66,9 @@ export default function VerifyEl({email}) {
 
     // notify parent
     newOtp.join("")
+    // if (newOtp.every(digit => digit !== "")) {
+    // handleSubmit(); // no need to pass anything
+    // }
   };
 
   const handleKeyDown = (e, index) => {
@@ -58,16 +83,32 @@ export default function VerifyEl({email}) {
       }
     }
   };
-
+  const handleSubmit = async (evnt) => {
+    if (evnt) {
+      evnt.preventDefault();
+    }
+    let inOTP = otp.join("");
+    console.log(inOTP,email,username)
+    let rqst = await fetch("/myServer/verifyEmail",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({username,email,inOTP}),
+      credentials:"include"
+    })
+    let result = await rqst.json();
+    console.log(result)
+  }
     return(
         <div className="underTaker">
             <div className="verifyDiv flex items-center justify-center">
                 <div className="formDiv">
-                    <form action="">
-                        <div className="txtDiv flex items-center flex-col p-2 gap-1">
+                    <form action="" onSubmit={handleSubmit}>
+                        <div className="txtDiv flex items-center flex-col p-2 gap-3">
                             <img className='h-[100px]' src="./Logo/CodeCove_Logo.png" alt="" />
                             <p className='font-light'>We sent a verification Code on.</p>
-                            <span className='text-[12px]'>xxxxxxx644@gmail.com</span>
+                            <span className='text-[12px]'>{email}</span>
                         </div>
                         <div className="otp-container flex justify-center gap-2 m-[2rem 0]">
                            {
@@ -75,15 +116,20 @@ export default function VerifyEl({email}) {
                                  <input 
                                     key={index}
                                     value={value}
+                                    id={index}
                                     onChange={(e)=>handleChange(e,index)}
                                     onKeyDown={(e)=>handleKeyDown(e,index)}
                                     ref={(el)=>(inputsRef.current[index] = el)}
-                                 type="text" maxLength={1} className='otp-box h-7 w-7 text-center text-[12px] font-medium border rounded-lg' />
+                                 type="text" maxLength={1} className='otp-box h-8 w-8 text-center text-[12px] font-medium border rounded-lg' />
                             ))
                            }
                         </div>
                         <div className="inputDiv">
-                            <button ref={btnRef} onClick={setCoundown} type='button' className='text-btn'>Resend (60s)</button>
+                            <button ref={btnRef} onClick={() => {
+                                  handleAPICall();
+                                  setCoundown();
+                                }}
+                                 type='button' className='text-btn'>Resend (60s)</button>
                             <button type='submit' className='btn'>Verify</button>
                         </div>
                     </form>
