@@ -6,7 +6,6 @@ export default function VerifyEl() {
     let btnRef = useRef();
     const handleAPICall = async () => {
      // if (btnRef.current.disabled != true) {
-        console.log(email,username)
         try {
             let request = await fetch("/myServer/sendVerifyEmail",{
                 method:"POST",
@@ -72,7 +71,6 @@ export default function VerifyEl() {
   };
 
   const handleKeyDown = (e, index) => {
-    console.log(e,index)
     if (e.key ==='Backspace') {
          const newOtp = [...otp];
       if (newOtp[index] === "" && index > 0) {
@@ -94,11 +92,10 @@ export default function VerifyEl() {
       headers:{
         "Content-Type":"application/json"
       },
-      body:JSON.stringify({username,email,inOTP}),
-      credentials:"include"
+      body:JSON.stringify({username,email,inOTP})
     })
     let result = await rqst.json();
-    console.log(result)
+   console.log(result)
   }
     return(
         <div className="underTaker">

@@ -1,6 +1,5 @@
 import express from 'express';
 import chalk from 'chalk';
-let myApp = express();
 import cookieParser from 'cookie-parser'
 let port = 3222;
 import fs from 'fs';
@@ -9,6 +8,7 @@ import multer from 'multer';
 import { CreateUser } from './Routes/CreateUser/createUser.js';
 import {getUsers} from './Routes/getUsers/getUsers.js';
 import {SendEmailVerify, verifyEmail } from './Routes/CreateUser/verifyUser.js';
+let myApp = express();
 myApp.use(express.json({limit:"1gb"}));
 myApp.use(cookieParser());
 myApp.use("/Images",express.static('Images'));

@@ -24,12 +24,12 @@ export const SendEmailVerify = async (rkv,rspo) => {
             "Wellcome",
             {username,otp}
         )
-        let payload = {email,otp}
+        let payload = {email,otp,username}
         if (send.rejected.length===0) {
-            const token = jwt.sign(payload,process.env.jwt_sec,{expiresIn:"5m"});
+            const token = jwt.sign(payload,process.env.jwt_sec,{expiresIn:"2m"});
             rspo.cookie("otpToken", token, {
               httpOnly: true,
-              secure: false, // must be false on localhost
+              secure: true, // must be false on localhost
               sameSite: "strict",
               maxAge: 5 * 60 * 1000,
             });
@@ -45,14 +45,34 @@ export const SendEmailVerify = async (rkv,rspo) => {
 }
 
 export const verifyEmail = async (rkv,rspo) => {
-    let {username,email,otp} = rkv.body;
+    let {username,email,inOTP} = rkv.body;
+    let token = rkv.cookies.otpToken
+    let tokenData = jwt.decode(token,process.env.jwt_sec)
+    let decodedTime = Math.floor(Date.now()/1000)
+    if (!token) {
+    return rspo.status(400).send({ err: "OTP token is missing or expired" });
+    }
    try {
-    let token = rspo.cookies.otpToken
-    console.log(token)
+    if (tokenData.exp<decodedTime) {
+        return rspo.status(504).send({err:"The OTP is expire"})
+    }
+    
+   if (tokenData.username !== username || tokenData.email !== email) {
+      return rspo.status(401).send({ err: "Unauthorized request" });
+    }
 
-    let decoded = jwt.decode(token,process.env.jwt_sec)
-    console.log(decoded,token,process.env.jwt_sec)
-    rspo.end();
+    // 4️⃣ Validate OTP
+    if (tokenData.otp.toString() !== inOTP) {
+      return rspo.status(400).send({ err: "Invalid OTP" });
+    }
+
+    // 5️⃣ OTP verified successfully
+   
+    if (tokenData.otp.toString() === inOTP) {
+         rspo.clearCookie("otpToken");
+        return rspo.status(200).send({ pass: "OTP verified successfully!" });
+    }
+
    } catch (error) {
     rspo.status(500).send({err:"server side error",details:error.message})
    }
