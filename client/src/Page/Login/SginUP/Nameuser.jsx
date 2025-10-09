@@ -115,6 +115,8 @@ export default function UserNameEl({stoggle}) {
                 setTUsername(username)
                 toast.success("We sucsfuLy send the otp ")
                 setVTab(true)
+            }else{
+                toast.error(result.err)
             }
         } catch (error) {
             console.log(error.message);
@@ -155,7 +157,7 @@ export default function UserNameEl({stoggle}) {
                                 <i id="checkbox" className="bx bxs-check-circle absolute right-0 top-2 transition-all duration-700 "></i>
                              <div className="suggestionDiv absolute flex items-center justify-center bottom-[-14px] gap-1.5">
                                 {cache?.map((value,index)=>(
-                                    <p onClick={()=>{setUsername(value),setCache([])}} className=" rounded-2xl text-[11px] " key={index}>{value}</p>
+                                    <p onClick={()=>{setUsername(value),setCache([])}} className=" rounded-2xl md:text-[11px] " key={index}>{value}</p>
                                 ))}
                             </div>
                             </div>

@@ -27,7 +27,7 @@ export default function LoginCon({toggle}) {
             <div className="mainLogDiv flex items-center justify-center h-full w-full ">
                 <div className="formDiv">
                     <form action="">
-                         <div className="Logotxt flex items-center flex-col w-[120px] absolute top-[-100px]">
+                         <div className="Logotxt flex items-center flex-col w-[120px] absolute sm:top-[-80px] lg:top-[-90px]">
                             <i className='bx bx-code-block text-5xl
                             transition-all duration-500 ease-in-out bg-[length:200%_200%]
                             bg-gradient-to-tr from-purple-500 via-pink-500 to-blue-600

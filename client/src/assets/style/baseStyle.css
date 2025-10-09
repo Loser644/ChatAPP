@@ -195,11 +195,11 @@ body{
     position: relative;
     transform: rotateY(0deg);
     padding: 10px;
-    height: 60vh; width: 90%;
+    height: 100%; width: 90%;
 }
 .face{
     position: absolute;
-    height: 90%; width: 90%;
+    height: 100%; width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -496,6 +496,63 @@ form>h1>span{
     100%{transform: rotate(1turn);}
 }
 
+@media (max-width:1024px) {
+    .rightside{
+        flex: 1 1 0;
+
+        .container{
+            height: 400px !important; width: 400px !important;
+        }
+    }
+}
+@media (max-width:769px) {
+        form{
+            gap: 10px;
+        .Logotxt{
+            top: -80px;
+        }
+    }
+    .inputDiv{
+        p{
+            font-size: 8px !important;
+        }
+    }
+    .leftside{
+        position: absolute;
+        flex: 1 1 0;
+        
+        .text-div{
+            left: 40%;
+            top: 90% !important;
+        }
+    }
+}
+@media (max-width:500px) {
+    .leftside{
+        display: none;
+    }
+    form{
+        padding: none !important;
+    }
+    .rightside{
+        padding: none !important;
+        .container{
+            width: 350px !important;
+        }
+    }
+    /* .formDiv{
+        .inputDiv{
+            width: 220px !important;
+        }
+    } */
+}
+@media (max-width:400px) {
+    .rightside{
+        .container{
+            width: 300px;
+        }
+    }
+}
 /* .container{
     height: 80vh; width: 80vw;
     background-color: var(--mini-bg-color);

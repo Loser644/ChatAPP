@@ -52,8 +52,8 @@ export default function LoginEL() {
                                 
                         </div>
                     </div>
-                    <div className="rightside h-full flex-1 !p-5 flex justify-center items-center">
-                        <div className="container !p-4 h-3/4 w-2/3  flex items-center justify-center">
+                    <div className="rightside h-full flex-1 p-5 flex justify-center items-center">
+                        <div className="container !p-4 h-[500px] w-[500px]  flex items-center justify-center">
                             <div className="senceDiv h-full w-full perspective-distant flex items-center justify-center">
                                 <div className={`cube relative transform-3d transition-all duration-1000 flex items-center justify-center ${getRotation()}`}>
                                     <div className="face front"><LoginCon/></div>
