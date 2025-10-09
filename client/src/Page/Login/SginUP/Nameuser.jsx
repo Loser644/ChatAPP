@@ -2,18 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import FaceToggle from "../../../lib/tabToggle";
 import {toast} from 'react-toastify'
 import verifyZu from "../../../lib/verifyZu";
+import { Loader } from "../../../lib/loader";
 export default function UserNameEl({stoggle}) {
     const {setTab} = FaceToggle();
     const {setMail,setTUsername,setVTab} = verifyZu();
+    const {isTrue,toggleLoader} = Loader();
     const [username,setUsername] = useState("");
     // const [debounceVal,setDeVal] = useState("");
     const [takenList,setList] = useState([]);
     const [cache,setCache] = useState([]);
+    const [isLoader,setLoader] = useState(isTrue);
     let divRef = useRef();
     let timeoutId; // define outside function (component scope or useRef)
-
+    useEffect(()=>{
+        setLoader(isTrue)
+    },[isTrue])
     function checkAv() {
     // remove previous classes before adding a new one
+    toggleLoader();
     divRef.current.classList.remove('avlbl', 'notavlbl');
 
     if (takenList.length > 0) {
@@ -26,13 +32,15 @@ export default function UserNameEl({stoggle}) {
     } else {
         divRef.current.classList.add('avlbl');
     }
-
+    toggleLoader()
     // clear any previous timeout to avoid overlapping removals
     clearTimeout(timeoutId);
 
     timeoutId = setTimeout(() => {
         divRef.current.classList.remove('avlbl', 'notavlbl');
     }, 3000);
+
+
     }
 
     useEffect(()=>{
@@ -87,6 +95,7 @@ export default function UserNameEl({stoggle}) {
 
     const handleSubmit = async (evnt) => {
         evnt.preventDefault();
+        toggleLoader()
         let formData = new FormData(evnt.target);
         let {username, email} = Object.fromEntries(formData);
         if (cache.includes(username)) {
@@ -108,7 +117,9 @@ export default function UserNameEl({stoggle}) {
                 setVTab(true)
             }
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
+        } finally{
+            toggleLoader();
         }
     }
     return(
@@ -155,7 +166,7 @@ export default function UserNameEl({stoggle}) {
                         </div>
                         <div className="inputDiv">
                             <button type="button" className="text-btn" onClick={()=>setTab("front")} >Already have Account?</button>
-                            <button type="submit" className="btn">Next</button>
+                            <button type="submit" className="btn">{isLoader ? <div className="miniLoader"></div> :"Login"}</button>
                         </div>
                     </form>
                 </div>

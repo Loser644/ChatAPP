@@ -26,12 +26,12 @@ export const SendEmailVerify = async (rkv,rspo) => {
         )
         let payload = {email,otp,username}
         if (send.rejected.length===0) {
-            const token = jwt.sign(payload,process.env.jwt_sec,{expiresIn:"2m"});
+            const token = jwt.sign(payload,process.env.jwt_sec,{expiresIn:"5m"});
             rspo.cookie("otpToken", token, {
               httpOnly: true,
               secure: true, // must be false on localhost
               sameSite: "strict",
-              maxAge: 5 * 60 * 1000,
+              maxAge: 6 * 60 * 1000
             });
             rspo.status(200).send({pass:"Email Send"});
         } else {

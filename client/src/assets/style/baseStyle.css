@@ -359,6 +359,8 @@ body{
     padding: 7px;
     border-radius: 10px;
     cursor: pointer;
+    position: relative;
+    transition: all .7s ease-in-out;
 
     &:hover{
         background-color: rgb(90, 90, 255);
@@ -372,6 +374,7 @@ body{
     font-weight: bold;
     padding: 10px;
     cursor: pointer;
+    position: relative;
      
     &:hover{
         color: rgb(90, 90, 255);
@@ -467,6 +470,32 @@ form>h1>span{
      background-color: var(--bg-color);
      box-shadow: 0 0 25px 8px rgba(107, 108, 107);
 }
+
+.miniLoader{
+    height: 25px; width: 25px;
+    display: grid;
+    animation: miniLoader 5s infinite;
+    object-position: center;
+}
+.miniLoader::after,
+.miniLoader::before{
+    content: '';
+    border-radius: 50px;
+    border: 2px solid transparent;
+    grid-area: 1/1;
+    animation: miniLoader 3s infinite;
+}
+.miniLoader::after{
+    border-color: white transparent transparent;
+    animation-direction: alternate-reverse;
+}
+.miniLoader::before{
+    border-color: red transparent transparent;
+}
+@keyframes miniLoader {
+    100%{transform: rotate(1turn);}
+}
+
 /* .container{
     height: 80vh; width: 80vw;
     background-color: var(--mini-bg-color);

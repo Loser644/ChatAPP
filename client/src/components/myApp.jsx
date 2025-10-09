@@ -13,6 +13,7 @@ export default function MyApp() {
     let location = useLocation();
     let isLogin = location.pathname === "/"
     const {isTrue,toggleLoader} = Loader();
+    const [isLoader,setLoader] = useState(isTrue);
     useEffect(()=>{
         const handler = ()=> toggleLoader();
         window.addEventListener("load",handler);
@@ -22,9 +23,12 @@ export default function MyApp() {
     useEffect(()=>{
         toggleTheme(currentTheme)
     },[])
+    useEffect(()=>{
+        setLoader(isTrue)
+    },[isTrue])
     return(
         <PageTransition location={location} key={location.pathname}>
-            {isTrue && <LoaderEL/>}
+            {isLoader && <LoaderEL/>}
            {!isLogin && <Header/>}
            {!isLogin && <MenuEL/>}
             <Routes>

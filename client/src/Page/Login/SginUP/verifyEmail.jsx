@@ -1,11 +1,20 @@
 import React, { useEffect, useRef,useState } from 'react'
 import verifyZu from '../../../lib/verifyZu';
 import { toast } from 'react-toastify';
+import { Loader } from '../../../lib/loader';
 export default function VerifyEl() {
-    const {email,username} = verifyZu();
+    const {email,username,setVTab,setMail} = verifyZu();
+    const {isTrue,toggleLoader} = Loader();
+    const [isLoader,setLoader] = useState(isTrue);
     let btnRef = useRef();
+    let vbtnRef = useRef();
+
+    useEffect(()=>{
+      setLoader(isTrue)
+    },[isTrue])
     const handleAPICall = async () => {
      // if (btnRef.current.disabled != true) {
+        toggleLoader();
         try {
             let request = await fetch("/myServer/sendVerifyEmail",{
                 method:"POST",
@@ -17,16 +26,19 @@ export default function VerifyEl() {
             let result = await request.json();
             if (result.pass) {
                 toast.success("We Succesfully! send the OTP again")
-            }else{
-              toast.error("Something went wrong please refres")
+              }else{
+                toast.error(result.err)
+                setVTab(false);
             }
         } catch (error) {
             console.log(error.message)
+        } finally{
+          toggleLoader();
         }
       //}
     }
     function setCoundown() {
-        let coundown = 5;
+        let coundown = 120;
         let btn= btnRef.current;
         btn.disabled = true;
         btn.style.opacity = 0.7;
@@ -45,6 +57,7 @@ export default function VerifyEl() {
 }
     useEffect(()=>{
         setCoundown();
+        vbtnRef.current.disabled = true
     },[])
 
  const [otp, setOtp] = useState(Array(6).fill(""));
@@ -65,9 +78,10 @@ export default function VerifyEl() {
 
     // notify parent
     newOtp.join("")
-    // if (newOtp.every(digit => digit !== "")) {
-    // handleSubmit(); // no need to pass anything
-    // }
+    if (newOtp.every(digit => digit !== "")) {
+      vbtnRef.current.disabled = false;
+       //handleSubmit(); // no need to pass anything
+    }
   };
 
   const handleKeyDown = (e, index) => {
@@ -81,31 +95,62 @@ export default function VerifyEl() {
       }
     }
   };
+
+
+  const handleAnimation =  () => {
+    let startingDelay = 0;
+    let inputCon = document.querySelector('.otp-container').children;
+    Array.from(inputCon).forEach(inp => {
+      startingDelay = startingDelay+0.4+"s";
+        inp.transition = ".7s"
+        inp.style.transitionDelay = startingDelay;
+    });
+    Array.from(inputCon).forEach(inp=>{
+      inp.style.borderColor = "yellowgreen";
+      inp.blur();
+    })
+    setVTab(false)
+  }
   const handleSubmit = async (evnt) => {
     if (evnt) {
       evnt.preventDefault();
     }
+    toggleLoader();
+    vbtnRef.current.disabled = true;
     let inOTP = otp.join("");
-    console.log(inOTP,email,username)
-    let rqst = await fetch("/myServer/verifyEmail",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({username,email,inOTP})
-    })
-    let result = await rqst.json();
-   console.log(result)
+   try {
+        console.log(inOTP,email,username)
+        let rqst = await fetch("/myServer/verifyEmail",{
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({username,email,inOTP})
+        })
+        let result = await rqst.json();
+        if (result.err) {
+          toast.info(result.err)
+        }else{
+          toast.success(result.pass)
+          handleAnimation();
+        }
+   } catch (error) {
+      toast.error(error.message.err)
+   } finally {
+    toggleLoader();
+    vbtnRef.current.disabled = false;
+   }
   }
     return(
         <div className="underTaker">
             <div className="verifyDiv flex items-center justify-center">
                 <div className="formDiv">
                     <form action="" onSubmit={handleSubmit}>
-                        <div className="txtDiv flex items-center flex-col p-2 gap-3">
+                        <div className="txtDiv flex items-center flex-col p-2 gap-2">
                             <img className='h-[100px]' src="./Logo/CodeCove_Logo.png" alt="" />
                             <p className='font-light'>We sent a verification Code on.</p>
                             <span className='text-[12px]'>{email}</span>
+                            <button className='text-btn' onClick={()=>{setMail(""),setVTab(false)}} type='button'>Change</button>
                         </div>
                         <div className="otp-container flex justify-center gap-2 m-[2rem 0]">
                            {
@@ -117,7 +162,7 @@ export default function VerifyEl() {
                                     onChange={(e)=>handleChange(e,index)}
                                     onKeyDown={(e)=>handleKeyDown(e,index)}
                                     ref={(el)=>(inputsRef.current[index] = el)}
-                                 type="text" maxLength={1} className='otp-box h-8 w-8 text-center text-[12px] font-medium border rounded-lg' />
+                                 type="text" maxLength={1} className='otp-box h-8 w-8 text-center text-[12px] font-medium  border-2 rounded-lg' />
                             ))
                            }
                         </div>
@@ -126,8 +171,8 @@ export default function VerifyEl() {
                                   handleAPICall();
                                   setCoundown();
                                 }}
-                                 type='button' className='text-btn'>Resend (60s)</button>
-                            <button type='submit' className='btn'>Verify</button>
+                                 type='button' className='text-btn'>Resend (120s)</button>
+                            <button ref={vbtnRef} type='submit' className='btn'>{isLoader ? <div className="miniLoader"></div> :"Verify"}</button>
                         </div>
                     </form>
                 </div>
