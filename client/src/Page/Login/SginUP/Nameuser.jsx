@@ -168,7 +168,7 @@ export default function UserNameEl({stoggle}) {
                         </div>
                         <div className="inputDiv">
                             <button type="button" className="text-btn" onClick={()=>setTab("front")} >Already have Account?</button>
-                            <button type="submit" className="btn">{isLoader ? <div className="miniLoader"></div> :"Login"}</button>
+                            <button type="submit" className="btn">{isLoader ? <div className="miniLoader"></div> :"Next"}</button>
                         </div>
                     </form>
                 </div>

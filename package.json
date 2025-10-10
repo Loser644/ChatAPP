@@ -1,5 +1,5 @@
 {
-  "name": "chatapp",
+  "name": "codecove",
   "version": "1.0.0",
   "main": "server/nodeServer/myServer.js",
   "type": "module",
